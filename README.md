@@ -270,6 +270,10 @@ The package build has also been validated with `makepkg` and `namcap`.
 
 Multi-monitor setups still need broader testing.
 
+## Contributors
+
+- [ItzShelfie](https://github.com/ItzShelfie)
+
 ## License
 
 The bridge-specific code is MIT licensed. The patched `xwaylandvideobridge` remains under its upstream KDE licenses (GPL/LGPL as applicable).
