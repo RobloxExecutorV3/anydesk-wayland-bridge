@@ -283,3 +283,5 @@ The bridge-specific code is MIT licensed. The patched `xwaylandvideobridge` rema
 This is an unofficial community workaround and is not affiliated with or supported by AnyDesk Software GmbH or KDE.
 
 Test reports and fixes are welcome.
+
+Test reports and fixes are welcome.
