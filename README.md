@@ -48,6 +48,24 @@ Then launch:
 anydesk-wayland-fixed
 ```
 
+### Prebuilt Arch package
+
+A prebuilt package is also attached to each GitHub Release. Install `anydesk-bin` first, then install the bridge package:
+
+```bash
+yay -S anydesk-bin
+curl -LO https://github.com/RobloxExecutorV3/anydesk-wayland-bridge/releases/download/v0.1.0/anydesk-wayland-bridge-0.1.0-1-x86_64.pkg.tar.zst
+sudo pacman -U anydesk-wayland-bridge-0.1.0-1-x86_64.pkg.tar.zst
+```
+
+Then run:
+
+```bash
+anydesk-wayland-fixed
+```
+
+> `pacman -U` does not resolve AUR dependencies by itself, which is why `anydesk-bin` is installed with an AUR helper first.
+
 On first launch, Polkit may ask once for permission to enable the system AnyDesk readiness path.
 
 When the AUR package goes live, installation will become:
