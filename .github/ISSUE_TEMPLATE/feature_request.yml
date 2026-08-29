@@ -1,0 +1,17 @@
+name: Feature request
+description: Suggest an improvement or new supported setup
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: What would you like to add?
+      description: Explain the use case and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Hardware, compositor, monitor layout, or implementation details.

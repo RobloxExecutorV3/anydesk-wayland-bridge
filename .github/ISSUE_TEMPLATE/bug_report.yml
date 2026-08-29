@@ -1,0 +1,65 @@
+name: Bug report
+description: Report a problem with AnyDesk Wayland Bridge
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for testing. Remove secrets before posting logs."
+  - type: input
+    id: distro
+    attributes:
+      label: Distribution
+      placeholder: Arch Linux
+    validations:
+      required: true
+  - type: input
+    id: hyprland
+    attributes:
+      label: Hyprland version
+      placeholder: hyprctl version
+    validations:
+      required: true
+  - type: input
+    id: anydesk
+    attributes:
+      label: AnyDesk version
+      placeholder: 8.0.4
+    validations:
+      required: true
+  - type: input
+    id: gpu
+    attributes:
+      label: GPU / driver
+      placeholder: NVIDIA RTX 3060 Ti / proprietary
+    validations:
+      required: true
+  - type: textarea
+    id: monitors
+    attributes:
+      label: Monitor layout
+      description: Resolution, refresh rate, scaling, and number of monitors.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe expected and actual behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Include bridge/input/video logs after removing secrets.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues first.
+          required: true
+        - label: I removed secrets from logs.
+          required: true

@@ -1,5 +1,12 @@
 # AnyDesk Wayland Bridge
 
+[![Release](https://img.shields.io/github/v/release/RobloxExecutorV3/anydesk-wayland-bridge?display_name=tag&sort=semver)](https://github.com/RobloxExecutorV3/anydesk-wayland-bridge/releases/latest)
+[![Stars](https://img.shields.io/github/stars/RobloxExecutorV3/anydesk-wayland-bridge?style=flat)](https://github.com/RobloxExecutorV3/anydesk-wayland-bridge/stargazers)
+[![Issues](https://img.shields.io/github/issues/RobloxExecutorV3/anydesk-wayland-bridge)](https://github.com/RobloxExecutorV3/anydesk-wayland-bridge/issues)
+![Arch Linux](https://img.shields.io/badge/Arch_Linux-supported-1793D1?logo=arch-linux&logoColor=white)
+![Wayland](https://img.shields.io/badge/Wayland-Hyprland-FFBC00?logo=wayland&logoColor=black)
+
+
 > Incoming AnyDesk remote control on **Hyprland/Wayland** without switching your desktop session to Xorg.
 
 `anydesk-wayland-bridge` is an experimental compatibility layer that makes AnyDesk's Linux X11 backend work with a live Hyprland session.
@@ -24,14 +31,15 @@ It currently handles:
 - AnyDesk's primary-monitor requirement
 - delayed AnyDesk startup until the virtual X server is ready
 
-## Install
+## Quick install
 
-### AUR
-
-Once published to the AUR:
+> [!NOTE]
+> **AUR package is not published yet.** Until AUR registration is available, install directly from GitHub with `makepkg`.
 
 ```bash
- yay -S anydesk-wayland-bridge
+git clone https://github.com/RobloxExecutorV3/anydesk-wayland-bridge.git
+cd anydesk-wayland-bridge
+makepkg -si
 ```
 
 Then launch:
@@ -40,16 +48,15 @@ Then launch:
 anydesk-wayland-fixed
 ```
 
-The launcher enables the user bridge automatically. On first launch, Polkit may ask once for permission to enable the system AnyDesk readiness path.
+On first launch, Polkit may ask once for permission to enable the system AnyDesk readiness path.
 
-### Build manually
+When the AUR package goes live, installation will become:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/anydesk-wayland-bridge.git
-cd anydesk-wayland-bridge
-makepkg -si
-anydesk-wayland-fixed
+yay -S anydesk-wayland-bridge
 ```
+
+`anydesk-bin` is declared as a dependency, so an AUR helper will pull AnyDesk automatically.
 
 ## How it works
 
