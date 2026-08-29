@@ -1,0 +1,57 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -33,6 +33,9 @@
+ 
+ 
+ find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Quick DBus)
++if (QT_MAJOR_VERSION STREQUAL "6")
++    find_package(Qt6 REQUIRED COMPONENTS GuiPrivate)
++endif()
+ if (QT_MAJOR_VERSION STREQUAL "5")
+     find_package(Qt5X11Extras ${QT_MIN_VERSION} REQUIRED)
+ endif()
+--- a/src/contentswindow.cpp
++++ b/src/contentswindow.cpp
+@@ -50,9 +50,12 @@
+     resize(QSize(100, 100));
+     setTitle(i18n("Wayland to X Recording bridge"));
+ 
+-    setOpacity(0);
+-    setFlag(Qt::WindowDoesNotAcceptFocus);
+-    setFlag(Qt::WindowTransparentForInput);
++    const bool anydeskBridge = qEnvironmentVariableIntValue("ANYDESK_WAYLAND_BRIDGE") == 1;
++    setOpacity(anydeskBridge ? 1.0 : 0.0);
++    if (!anydeskBridge) {
++        setFlag(Qt::WindowDoesNotAcceptFocus);
++        setFlag(Qt::WindowTransparentForInput);
++    }
+ #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+     KX11Extras::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
+ #else
+@@ -80,6 +83,11 @@
+ 
+ void ContentsWindow::handleResize()
+ {
++    if (qEnvironmentVariableIntValue("ANYDESK_WAYLAND_BRIDGE") == 1) {
++        setX(0);
++        setY(0);
++        return;
++    }
+     // In theory this isn't needed - we're transparent for input, but a bug in either Xorg or kwin means
+     // that it doesn't. If we forward to X it falls to the X window underneath, but kwin still "knows" theres
+     // an xwayland surface there and sends to X and not the right client
+--- a/src/xwaylandvideobridge.cpp
++++ b/src/xwaylandvideobridge.cpp
+@@ -104,6 +104,12 @@
+     m_sni->setStatus(KStatusNotifierItem::Passive);
+ 
+     m_window->show();
++
++    // AnyDesk Wayland Bridge mode: start the portal stream immediately.
++    // The stock app waits until another X11 app redirects this window via XComposite.
++    if (qEnvironmentVariableIntValue("ANYDESK_WAYLAND_BRIDGE") == 1) {
++        QTimer::singleShot(100, this, [this]() { init(); });
++    }
+ }
+ 
+ XwaylandVideoBridge::~XwaylandVideoBridge() = default;

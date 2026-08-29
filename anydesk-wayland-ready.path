@@ -1,0 +1,9 @@
+[Unit]
+Description=Start AnyDesk when the Wayland bridge X11 display is ready
+
+[Path]
+PathExists=/tmp/.X11-unix/X99
+Unit=anydesk.service
+
+[Install]
+WantedBy=multi-user.target

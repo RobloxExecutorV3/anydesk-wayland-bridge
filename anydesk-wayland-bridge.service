@@ -1,0 +1,16 @@
+[Unit]
+Description=AnyDesk Wayland compatibility bridge for Hyprland
+Documentation=https://aur.archlinux.org/packages/anydesk-wayland-bridge
+After=graphical-session.target xdg-desktop-portal.service xdg-desktop-portal-hyprland.service
+PartOf=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/lib/anydesk-wayland-bridge/run-bridge.sh
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=5
+
+[Install]
+WantedBy=graphical-session.target

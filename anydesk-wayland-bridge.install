@@ -1,0 +1,10 @@
+post_install() {
+    printf '%s\n' \
+      'AnyDesk Wayland Bridge installed.' \
+      'Open "AnyDesk (Wayland Fix)" from your launcher.' \
+      'On first launch it enables the user bridge and asks once for authorization to enable the system path unit.'
+}
+
+post_upgrade() {
+    post_install
+}

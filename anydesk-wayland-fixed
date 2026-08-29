@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LIBDIR=/usr/lib/anydesk-wayland-bridge
+
+if [[ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
+    command -v notify-send >/dev/null && notify-send "AnyDesk Wayland Fix" "This build currently supports Hyprland sessions."
+    exit 1
+fi
+
+systemctl --user enable --now anydesk-wayland-bridge.service
+
+for _ in {1..80}; do
+    [[ -S /tmp/.X11-unix/X99 ]] && break
+    sleep 0.1
+done
+if [[ ! -S /tmp/.X11-unix/X99 ]]; then
+    command -v notify-send >/dev/null && notify-send "AnyDesk Wayland Fix" "Bridge failed to create X display :99."
+    exit 1
+fi
+
+if ! systemctl is-enabled --quiet anydesk-wayland-ready.path 2>/dev/null; then
+    if command -v pkexec >/dev/null; then
+        pkexec /usr/bin/systemctl enable --now anydesk-wayland-ready.path
+    else
+        command -v notify-send >/dev/null && notify-send "AnyDesk Wayland Fix" "Run: sudo systemctl enable --now anydesk-wayland-ready.path"
+        exit 1
+    fi
+fi
+
+if ! systemctl is-active --quiet anydesk.service; then
+    if command -v pkexec >/dev/null; then
+        pkexec /usr/bin/systemctl start anydesk.service
+    else
+        command -v notify-send >/dev/null && notify-send "AnyDesk Wayland Fix" "Run: sudo systemctl start anydesk.service"
+        exit 1
+    fi
+fi
+
+exec env \
+    XDG_SESSION_TYPE=x11 \
+    LD_PRELOAD="$LIBDIR/libanydesk-wayland-shim.so" \
+    /usr/bin/anydesk "$@"

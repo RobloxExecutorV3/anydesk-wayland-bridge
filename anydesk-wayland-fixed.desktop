@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=AnyDesk (Wayland Fix)
+GenericName=Remote Desktop
+Comment=AnyDesk incoming remote control on Hyprland/Wayland
+Exec=anydesk-wayland-fixed
+Icon=anydesk
+Terminal=false
+Categories=Network;RemoteAccess;
+StartupNotify=true
+StartupWMClass=anydesk
+Keywords=remote;desktop;anydesk;wayland;hyprland;
