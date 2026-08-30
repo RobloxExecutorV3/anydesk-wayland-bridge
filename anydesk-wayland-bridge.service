@@ -11,6 +11,7 @@ ExecStart=/usr/lib/anydesk-wayland-bridge/run-bridge.sh
 Restart=on-failure
 RestartSec=2
 TimeoutStopSec=5
+CPUQuota=150%
 
 [Install]
 WantedBy=graphical-session.target

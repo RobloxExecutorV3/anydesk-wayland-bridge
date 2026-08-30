@@ -38,6 +38,9 @@ fi
 
 export DISPLAY="$VDISPLAY"
 export QT_QPA_PLATFORM=xcb
+# Xvfb has no GPU acceleration, so Mesa falls back to llvmpipe. Limit it to
+# one worker by default so the bridge cannot saturate every CPU core.
+export LP_NUM_THREADS="${ANYDESK_BRIDGE_RENDER_THREADS:-1}"
 export ANYDESK_WAYLAND_BRIDGE=1
 export XDG_SESSION_TYPE=wayland
 export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-Hyprland}"

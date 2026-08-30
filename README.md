@@ -54,8 +54,8 @@ A prebuilt package is also attached to each GitHub Release. Install `anydesk-bin
 
 ```bash
 yay -S anydesk-bin
-curl -LO https://github.com/RobloxExecutorV3/anydesk-wayland-bridge/releases/download/v0.1.0/anydesk-wayland-bridge-0.1.0-1-x86_64.pkg.tar.zst
-sudo pacman -U anydesk-wayland-bridge-0.1.0-1-x86_64.pkg.tar.zst
+curl -LO https://github.com/RobloxExecutorV3/anydesk-wayland-bridge/releases/download/v0.1.1/anydesk-wayland-bridge-0.1.1-1-x86_64.pkg.tar.zst
+sudo pacman -U anydesk-wayland-bridge-0.1.1-1-x86_64.pkg.tar.zst
 ```
 
 Then run:
@@ -173,6 +173,17 @@ screen connected primary 2560x1440+0+0
 ```
 
 The actual resolution is detected from the current Hyprland monitor when the bridge starts.
+
+
+## CPU usage
+
+`v0.1.1` limits Mesa llvmpipe to one worker by default because Xvfb has no GPU acceleration. Without this limit, software rendering can create one worker per CPU core and saturate the entire processor.
+
+The systemd user service also has a `CPUQuota=150%` safety limit. Advanced users can raise the Mesa worker count when needed:
+
+```bash
+ANYDESK_BRIDGE_RENDER_THREADS=2 anydesk-wayland-fixed
+```
 
 ## Troubleshooting
 
